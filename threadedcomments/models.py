@@ -8,7 +8,7 @@ PATH_SEPARATOR = getattr(settings, 'COMMENT_PATH_SEPARATOR', '/')
 PATH_DIGITS = getattr(settings, 'COMMENT_PATH_DIGITS', 10)
 
 class ThreadedComment(Comment):
-    title = models.TextField(_('Title'), blank=True)
+
     parent = models.ForeignKey('self', null=True, blank=True, default=None,
         related_name='children', verbose_name=_('Parent'))
     last_child = models.ForeignKey('self', null=True, blank=True,
@@ -50,7 +50,7 @@ class ThreadedComment(Comment):
             tree_path=self.tree_path)
 
     class Meta(object):
+        abstract = True
         ordering = ('tree_path',)
-        db_table = 'threadedcomments_comment'
         verbose_name = _('Threaded comment')
         verbose_name_plural = _('Threaded comments')

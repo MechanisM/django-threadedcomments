@@ -10,14 +10,6 @@ class ThreadedCommentForm(CommentForm):
     parent = forms.IntegerField(required=False, widget=forms.HiddenInput)
 
     def __init__(self, target_object, parent=None, data=None, initial=None):
-        self.base_fields.insert(
-                self.base_fields.keyOrder.index('comment'), 'title',
-                forms.CharField(
-                    label=_('title'),
-                    required=False,
-                    max_length=getattr(settings, 'COMMENTS_TITLE_MAX_LENGTH', 255)
-                )
-            )
         self.parent = parent
         if initial is None:
             initial = {}
@@ -31,6 +23,5 @@ class ThreadedCommentForm(CommentForm):
     def get_comment_create_data(self):
         d = super(ThreadedCommentForm, self).get_comment_create_data()
         d['parent_id'] = self.cleaned_data['parent']
-        d['title'] = self.cleaned_data['title']
         return d
 
