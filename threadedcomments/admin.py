@@ -27,5 +27,3 @@ class ThreadedCommentsAdmin(CommentsAdmin):
                      'user_email', 'user_url', 'ip_address')
     raw_id_fields = ("parent",)
 
-admin.site.register(ThreadedComment, ThreadedCommentsAdmin)
-
